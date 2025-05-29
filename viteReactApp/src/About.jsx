@@ -1,13 +1,24 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 
-function About() {
+function About({bgcolor}) {
+  const [input,setInput]=useState('')
+
+  function handleChange(e){
+       const color=e.target.value;
+       setInput(color)
+       bgcolor(color)
+  }
+  
   return (
-    <>
-      <center>
-        <h1>This is About Page</h1>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eos ipsam velit vero, nihil minima voluptatibus. Itaque totam, doloremque at laudantium, veniam eaque magnam tenetur consequuntur, distinctio accusamus nesciunt animi. Est.</p>
-      </center>
-    </>
+    
+     <>
+       <div>
+        <input type="text" placeholder='Enter color' 
+         value={input}
+         onChange={handleChange}
+         className='w-60  px-2 border-2'/>
+       </div>
+     </>
   )
 }
 

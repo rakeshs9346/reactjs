@@ -1,36 +1,31 @@
-import React from 'react'
-import {Link,NavLink} from 'react-router-dom'
+import React, { useContext } from 'react'
+import {useForm} from 'react-hook-form'
 
 function Navbar() {
+ 
+  const {register,handleSubmit,formState:{errors}}=useForm();
+  const onSubmit=(data)=>{
+    console.log(data)
+  }
+
   return (
     <>
-      <div className='w-screen h-24 bg-gray-700 flex justify-around items-center'>
-          <div>Logo</div>
-          <div>
-            <ul className='flex gap-5 '>
-               <NavLink to='/'
-                style={({isActive})=>({
-                    color: isActive ? 'orange': 'black',
-                })}><li>Home</li></NavLink>
-                              
-                <NavLink to='/about'
-                style={({isActive})=>({
-                    color: isActive ? 'orange': 'black',
-                })}><li>About</li></NavLink>
-                               
-                <NavLink to='/contact'
-                style={({isActive})=>({
-                    color: isActive ? 'orange': 'black',
-                })}><li>Contact</li></NavLink>
-      
-                <NavLink to='/signup'
-                style={({isActive})=>({
-                  color:isActive ? 'orange' : 'black'
-                })}> <li>Signup</li></NavLink>
-                
-            </ul>
-          </div>
+     <form onSubmit={handleSubmit(onSubmit)}>
+      <div className='w-screen h-screen  flex flex-col justify-center'>
+        <div>
+        <label>FirstName:</label>
+        <input {...register('firstname',{required:true,minLength:{value:3,message:'length atleast 3'},maxLength:6})} placeholder='firstname' 
+        />
+        {errors.firstname && <p>{errors.firstname.message}</p>}
+        <br /><br />
+        <label >LastName:</label>
+        <input {...register('lastname',{required:true,minLength:{value:3,message:'length must be min 3'}})} />
+        {errors.lastname && <p>{errors.lastname.message}</p>}
+        
+        </div>
+        <input type="submit" />
       </div>
+     </form>
     </>
   )
 }
